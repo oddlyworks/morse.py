@@ -32,7 +32,8 @@ def translate(in_string) -> str:
 def sound(in_string) -> None:
     """Produces audio of translated in_string."""
     if playsound is None:
-        print("Module 'playsound' is not installed.")
+        print('Module \'playsound\' is not installed.')
+        print('Cannot play audio at this time.')
         return
     morse_string = translate(in_string)
     for char in morse_string:
