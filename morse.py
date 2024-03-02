@@ -1,6 +1,9 @@
 """Produces either printed or audio morse code for an input string."""
 import time
-from playsound import playsound
+try:
+    from playsound import playsound
+except ImportError:
+    playsound = None
 
 DELAY = 0.5  # delay time in seconds
 MORSECODE = {
@@ -15,7 +18,7 @@ MORSECODE = {
     '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----'
     }
 
-def translate(in_string):
+def translate(in_string) -> str:
     """Returns translation of in_string in '.' and '-' format."""
     string = list(in_string)
     morse_string = ''
@@ -26,8 +29,11 @@ def translate(in_string):
             print(f'Key {char} Not Found')
     return morse_string
 
-def sound(in_string):
+def sound(in_string) -> None:
     """Produces audio of translated in_string."""
+    if playsound is None:
+        print("Module 'playsound' is not installed.")
+        return
     morse_string = translate(in_string)
     for char in morse_string:
         if char == '.':
